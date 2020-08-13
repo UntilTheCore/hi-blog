@@ -22,7 +22,7 @@
                 <div class="form-group">
                     <label>作者</label>
                     <input type="hidden" name="author" value="{{@userInfo && userInfo._id}}" >
-                    <input type="text" class="form-control" value="{{@userInfo && userInfo.username }}"readonly>
+                    <input type="text" class="form-control" value="{{author ? author : userInfo.username}}"readonly>
                 </div>
                 <div class="form-group">
                     <label>发布时间</label>
