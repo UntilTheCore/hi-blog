@@ -1,0 +1,41 @@
+{{extend './common/layout.art'}}
+{{block 'main'}}
+    <div class="login-body">
+        <div class="login-container">
+            <h4 class="title">博客管理员登录</h4>
+            <div class="login">
+                <form action="/admin/login" method="POST" id="loginForm">
+                    <div class="form-group">
+                        <label>邮件</label>
+                        <input name="email" type="email" class="form-control" placeholder="请输入邮件地址">
+                    </div>
+                    <div class="form-group">
+                        <label>密码</label>
+                        <input name="password" type="password" class="form-control" placeholder="请输入密码">
+                    </div>
+                    <button type="submit" class="btn btn-primary">登录</button>
+                </form>
+            </div>
+            <div class="tips"></div>
+        </div>
+    </div>
+{{/block}}
+{{block 'script'}}
+<script type="text/javascript">
+    $('#loginForm').on('submit',function(){
+        var serializeObj = $(this).serializeArray();
+        var result = serializeToJson(serializeObj);
+        // 对获取的json对象进行判断处理。
+        var emailValite = /^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/;
+        if(result.email.trim().length == 0) {
+            alert('邮件地址不能为空');
+            
+        }else if(result.password.trim().length == 0) {
+            alert('密码不能为空');
+        }
+        if(!emailValite.test(result.email.trim())){
+                alert('请输入正确的邮件地址!');
+        }
+    });
+</script>
+{{/block}}

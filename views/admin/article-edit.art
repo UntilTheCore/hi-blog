@@ -1,0 +1,84 @@
+{{extend './common/layout.art'}}
+{{block 'main'}}
+    <!-- 头部 -->
+    {{include './common/header.art'}}
+    <!-- /头部 -->
+    <!-- 主体内容 -->
+    <div class="content">
+        <!-- 侧边栏 -->
+    {{include './common/aside.art'}}
+        <!-- 侧边栏 -->
+        <div class="main">
+            <!-- 分类标题 -->
+            <div class="title">
+                <h4>{{@button === '修改' ? article._id : ''}}</h4>
+            </div>
+            <!-- /分类标题 -->
+            <form class="form-container" action="{{link}}" method="POST" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label>标题</label>
+                    <input type="text" name="title" class="form-control" placeholder="请输入文章标题" value="{{article && article.title}}" >
+                </div>
+                <div class="form-group">
+                    <label>作者</label>
+                    <input type="hidden" name="author" value="{{@userInfo && userInfo._id}}" >
+                    <input type="text" class="form-control" value="{{@userInfo && userInfo.username }}"readonly>
+                </div>
+                <div class="form-group">
+                    <label>发布时间</label>
+                    <input type="date" name="publicDate" class="form-control" value="{{article && article.publicDate.toISOString().split('T')[0]}}" {{article && 'readonly'}}>
+                </div>
+                
+                <div class="form-group">
+                   <label for="exampleInputFile">文章封面</label>
+                   <!-- input 上传文件的表单中添加 multiple 属性可以让用户选择多个文件进行上传。 -->
+                   <input type="file" name="cover" id="cover">
+                   <div class="thumbnail-waper">
+                       <img class="img-thumbnail" src="" id="cover-img">
+                   </div>
+                </div>
+                <div class="form-group">
+                    <label>内容</label>
+                    <textarea class="form-control" name="content" id="editor" ">{{article && article.content}}</textarea>
+                </div>
+                <div class="buttons">
+                    <input type="submit" class="btn btn-primary" value="{{button}}">
+                </div>
+            </form>
+            
+        </div>
+    </div>
+    <!-- /主体内容 -->
+{{/block}}
+
+{{block 'script'}}
+    <script src="/admin/lib/ckeditor5/ckeditor.js"></script>
+    <script type="text/javascript">
+    
+        let editor;
+
+        ClassicEditor
+                .create( document.querySelector('#editor'))
+                .then(newEditor => {
+                    editor = newEditor;
+                })
+                .catch( error => {
+                    console.error( error );
+                });
+
+        // 获取数据
+        // const editorData = editor.getData();
+
+        var file = document.querySelector('#cover');
+        var cover_img = document.querySelector('#cover-img');
+        file.onchange = function() {
+            // this.files中保存的是选中的文件信息，它是一个伪数组，所以需要使用 this.files[0] 来选取第一个文件
+            // console.log(this.files);
+            var reader = new FileReader();
+            reader.readAsDataURL(this.files[0]);
+            reader.onload = function() {
+                cover_img.src = reader.result;
+            }
+        }
+    </script>
+{{/block}}
