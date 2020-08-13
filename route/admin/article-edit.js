@@ -4,6 +4,10 @@ const { Article } = require('../../model/article')
 module.exports = async (req, res) => {
 	req.app.locals.currentLink = 'article'
 	let id = req.query.id
+	let today = new Date(Date.parse(new Date()) + 28800000)
+		.toISOString()
+		.split('T')[0]
+	console.log(today)
 	if (id) {
 		let article = await Article.findOne({ _id: id })
 		res.render('admin/article-edit', {
@@ -15,6 +19,7 @@ module.exports = async (req, res) => {
 		res.render('admin/article-edit', {
 			link: '/admin/article-edit-add',
 			button: '添加',
+			today,
 		})
 	}
 }
