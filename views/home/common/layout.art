@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="zh-Hans">
 <head>
 	<meta charset="UTF-8">
-	<title>首页</title>
+	<title>Hi-Blog</title>
 	<link rel="stylesheet" href="/home/css/base.css">
 	
     {{block 'link'}}{{/block}}
