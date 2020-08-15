@@ -10,6 +10,13 @@ const template = require('art-template')
 const dateFormat = require('dateformat')
 const morgan = require('morgan')
 const config = require('config')
+const redis = require('redis')
+const RedisStore = require('connect-redis')(session)
+let redisClient = redis.createClient()
+global.redisClient = redisClient
+redisClient.on('error', (err) => {
+	console.log('redis error', err)
+})
 // 引入自定义模块
 // 引入数据库连接模块
 require('./model/connect')
@@ -49,8 +56,10 @@ app.use(
 		resave: false,
 		saveUninitialized: false,
 		cookie: {
+			httpOnly: true,
 			maxAge: 24 * 60 * 60 * 1000,
 		},
+		store: new RedisStore({ client: redisClient }),
 	})
 )
 // 配置静态资源访问目录 要在请求的最上面开启

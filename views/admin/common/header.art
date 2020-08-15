@@ -13,7 +13,7 @@
 					<span class="caret"></span>
                 </span>
                 <ul class="dropdown-menu">
-                    <li><a href="/admin/user-edit?id={{@userInfo._id}}">个人资料</a></li>
+                    <li><a href="/admin/user-edit?id={{userInfo._id}}">个人资料</a></li>
                     <li><a href="/admin/loginout">退出登录</a></li>
                 </ul>
             </div>
