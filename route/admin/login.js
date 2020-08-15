@@ -21,15 +21,12 @@ module.exports = async (req, res) => {
 			req.session.role = user.role
 
 			req.session.user = user
-			console.log(req.sessionID)
-			console.log(req.session.id)
 			// 将 user 对象开放到全局
 			// app 对象通过 req 即可获取到
 			req.app.locals.userInfo = user
 
 			// 重定向到 user 页面 admin 前面添加了 / 成为绝对路径才能正确访问。
 			// 或者不写 / 服务器将以浏览器地址作为相对路径进行访问。使用绝对路径为佳
-			console.log(req.session)
 			res.redirect('/admin/user')
 		} else {
 			loginFailed(res)

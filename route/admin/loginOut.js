@@ -9,5 +9,4 @@ module.exports = (req, res) => {
 		// 清除用户在模板中的全局信息
 		req.app.locals.userInfo = null
 	})
-	console.log(req.session)
 }

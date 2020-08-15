@@ -15,7 +15,6 @@ const guard = (req, res, next) => {
 			next()
 		} else {
 			req.app.locals.userInfo = u ? u.user : ''
-			console.log(req.app.locals)
 			// 用户已登录时，进行角色判断
 			if (req.session.role == 'normal') {
 				// 普通用户则跳转到博客主页
