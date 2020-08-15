@@ -1,5 +1,4 @@
 module.exports = (req, res) => {
-	console.log(req.session)
 	// 删除 session
 	req.session.destroy(function () {
 		// 删除 cookie

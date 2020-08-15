@@ -92,7 +92,7 @@ app.use(require('./middleware/errorHandle'))
 app.use((req, res) => {
 	res.status(404).send('访问的页面不存在！')
 })
-
 // 监听端口
-app.listen(80)
-console.log('网站服务器启动成功!')
+const port = process.argv[2]
+app.listen(port)
+console.log(`网站服务器启动成功!监听端口:${port}`)
